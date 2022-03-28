@@ -1,19 +1,19 @@
 #!/bin/bash
 
 #create mysql directory
-if ls ./mysql/ &> /dev/null; then
+if ls /home/sadmin/jenkins/mysql/ &> /dev/null; then
    echo "MYSQL DIRECTORY HAS ALREADY CREATED"
    echo $PWD
-else mkdir mysql
+else mkdir /home/sadmin/jenkins/mysql
    echo "MYSQL DIRECTORY HAS BEEN CREATED"
    echo $PWD
 fi
 
 #check wordpress directory
-if ls ./wordpress/ &> /dev/null; then
+if ls /home/sadmin/jenkins/wordpress/ &> /dev/null; then
    echo "WORDPRESS HAS ALREADY CREATED"
    echo $PWD
-else mkdir ./wordpress
+else mkdir /home/sadmin/jenkins/wordpress
       echo "WORDPRESS CATALOG HAS BEEN CREATED"
       echo $PWD
       fi
