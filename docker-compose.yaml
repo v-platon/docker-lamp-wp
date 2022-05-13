@@ -1,2 +1,47 @@
 version: '3'
 services:
+    wordpress:
+        image: wordpress
+        restart: always
+        ports:
+            - 80:80
+        env_file:
+            - variables.env
+        environment: 
+            WORDPRESS_DB_HOST: mariadb
+            WORDPRESS_DB_USER: "$${DATABASE_USER}"
+            WORDPRESS_DB_PASSWORD: "$${DATABASE_PASSWORD}"
+            WORDPRESS_DB_NAME: "$${DATABASE_NAME}"
+        volumes:
+            - wordpress:/var/www/html
+        links:
+            - 'mariadb'
+
+    mariadb:
+        image: mariadb:10.7.3
+        restart: always
+        volumes:
+            - mariadb:/var/lib/mysql
+        env_file:
+            - variables.env
+        environment:
+            TZ: "Europe/Minsk"
+            MYSQL_ALLOW_EMPTY_PASSWORD: "no"
+            MYSQL_ROOT_PASSWORD: "$${ROOT_PASSWD}"
+            MYSQL_USER: "$${DATABASE_USER}"
+            MYSQL_PASSWORD: "$${DATABASE_PASSWORD}"
+            MYSQL_DATABASE: "$${DATABASE_NAME}"
+
+volumes:
+    mariadb:
+      driver: local
+      driver_opts:
+        type: none
+        o: bind
+        device: /home/slave/workspace/Docker/mysql
+    wordpress:
+      driver: local
+      driver_opts:
+        type: none
+        o: bind
+        device: /home/slave/workspace/Docker/wordpress

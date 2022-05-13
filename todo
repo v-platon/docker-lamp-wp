@@ -1,0 +1,29 @@
+#!/bin/bash
+
+#create mysql directory
+if ls ./mysql/ &> /dev/null; then
+   echo "MYSQL DIRECTORY HAS ALREADY CREATED"
+   echo $PWD
+else mkdir mysql
+   echo "MYSQL DIRECTORY HAS BEEN CREATED"
+   echo $PWD
+fi
+
+#check wordpress directory
+if ls ./wordpress/ &> /dev/null; then
+   echo "WORDPRESS HAS ALREADY CREATED"
+   echo $PWD
+else mkdir wordpress
+      echo "WORDPRESS CATALOG HAS BEEN CREATED"
+      echo $PWD
+      fi
+
+#revome old containers
+if docker stop $(docker ps -aq)&> /dev/null; then
+   docker rm $(docker ps -aq)
+   echo "CONTAINERS REMOVED"
+else echo "NO CONTAINERS"
+fi
+
+#start docker-compose
+docker-compose up -d
